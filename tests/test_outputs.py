@@ -5,7 +5,7 @@ REPORT_PATH = Path("/app/report.json")
 
 
 def test_report_exists_and_valid_json():
-    """Criterion 1: The file /app/report.json exists and is valid JSON."""
+    """report.json must exist and be parseable JSON."""
     assert REPORT_PATH.exists(), "no report.json found"
     text = REPORT_PATH.read_text()
     try:
@@ -15,7 +15,7 @@ def test_report_exists_and_valid_json():
 
 
 def test_total_requests():
-    """Criterion 2: total_requests equals the actual number of requests in the log."""
+    """total_requests should equal 6 (the number of lines in access.log)."""
     report = json.loads(REPORT_PATH.read_text())
     assert "total_requests" in report, "missing key: total_requests"
     assert report["total_requests"] == 6, (
@@ -24,7 +24,7 @@ def test_total_requests():
 
 
 def test_unique_ips():
-    """Criterion 3: unique_ips equals the actual number of distinct source IPs."""
+    """unique_ips should be 3 (192.168.0.1, 192.168.0.2, 10.0.0.5)."""
     report = json.loads(REPORT_PATH.read_text())
     assert "unique_ips" in report, "missing key: unique_ips"
     assert report["unique_ips"] == 3, (
@@ -33,7 +33,7 @@ def test_unique_ips():
 
 
 def test_top_path():
-    """Criterion 4: top_path equals the path with the highest request count."""
+    """top_path should be /index.html (3 hits vs 2 for /about.html)."""
     report = json.loads(REPORT_PATH.read_text())
     assert "top_path" in report, "missing key: top_path"
     assert report["top_path"] == "/index.html", (

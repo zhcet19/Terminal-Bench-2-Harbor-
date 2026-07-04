@@ -1,14 +1,14 @@
-Parse the Apache-style access log at `/app/access.log` and produce a JSON summary report at `/app/report.json`.
+Parse the Apache-style access log at `/app/access.log` and write a JSON summary to `/app/report.json`.
 
-The report must be a JSON object with exactly these keys:
+The output must be a JSON object with these keys:
 
-1. `total_requests` — integer count of all log lines (requests).
-2. `unique_ips` — integer count of distinct client IP addresses.
-3. `top_path` — string: the request path (e.g. `/index.html`) that appears most often.
+1. `total_requests` — total number of requests (i.e. lines) in the log.
+2. `unique_ips` — number of distinct client IPs seen.
+3. `top_path` — the request path that appears the most.
 
 Success criteria:
 
-1. The file `/app/report.json` exists and is valid JSON.
-2. `total_requests` equals the actual number of requests in the log.
-3. `unique_ips` equals the actual number of distinct source IPs.
-4. `top_path` equals the path with the highest request count.
+1. `/app/report.json` exists and contains valid JSON.
+2. `total_requests` is correct.
+3. `unique_ips` is correct.
+4. `top_path` is correct.
